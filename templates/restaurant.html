@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <title>Main Page</title>
+</head>
+<body>
+{% if not res %}
+    <h1> No results found </h1>
+{% endif %}
+{% for value in res %}
+    <p style="margin-bottom: 0px !important;"><i>{{value.url}}</i></p>
+    <a href="{{value.url}}"><h3 style="margin-top: 0px !important; margin-bottom: 0px !important;">{{value.title}}</h3></a>
+    <p style="margin-top: 0px !important;">{{ value.preview }}</p>
+{% endfor %}
+
+</body>
+<script>
+    console.log({{ res }})
+</script>
+</html>
+

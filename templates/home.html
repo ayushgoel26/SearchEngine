@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html>
+  <head>
+	<meta name="author" content="Riya Bhargava">
+    <title>Restaurant Search Engine</title>
+    <link rel="stylesheet">
+  </head>
+  <body>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <!-- <script src="sample_response.js"></script> -->
+    <!-- <script src="script.js"></script> -->
+    <script type="text/javascript" src="{{url_for('static', filename='script.js')}}"></script>
+
+    <div style="margin:0px 300px 0px 600px">
+        <h1>Restaurant Search Engine</h1>
+    </div>
+
+    <img src="{{url_for('static', filename='pic.gif')}}" width="400" height="200" style="margin:0px 500px 0px 600px">
+    <div class="form-group" style="margin:0px 300px 0px 450px">
+        <form id="form" onsubmit="true;">
+            <br>
+
+            <input type="text" class="form-control" placeholder="Type query here..." id="UserInput"><br/>
+
+            <!-- <p id="relevance">Relevance Model Options:</p>
+            <input type="radio" checked id="page_rank" name="type" value="page_rank">
+            <label id="page_rank_label" for="page_rank">Page Rank</label>
+            <input type="radio" id="hits" name="type" value="hits" class="margin">
+            <label id="hits_label" for="hits">HITS</label><br/> -->
+
+            <select class="form-control" name="relevance" id="relevance" onchange="valueChange('relevance')">
+                <option id="rel" value="">Relevance Model option:</option>
+                <option id="page_rank" for="page_rank" value="page_rank">Page Rank</option>
+                <option id="hits" for="hits" value="hits">HITS</option>
+            </select><br>
+            <!-- <p id="clustering">Clustering Options:</p>
+            <input type="radio" id="flat_clustering" name="type" value="flat_clustering">
+            <label id="flat_clustering_label" for="flat_clustering">Flat Clustering</label>
+            <input type="radio" id="hierarchical_clustering" name="type" value="hierarchical_clustering" class="margin">
+            <label id="hierarchical_clustering_label" for="hierarchical_clustering">Hierarchical Clustering</label><br>
+            <hr> -->
+
+           <select class="form-control" name="clustering" id="clustering" onchange="valueChange('clustering')">
+            <option id="clus" value="">Clustering option: </option>
+            <option id="flat_clustering" for="flat_clustering" value="flat_Clustering">Flat Clustering</option>
+            <!-- <option id="hierarchical_clustering_label" for="hierarchical_clustering"  value="hierarchical_clustering">Hierarchical Clustering</option> -->
+            <option id="agglo1_clustering" for="agglo1_clustering" value="agglo1_Clustering">Agglomerative Clustering (Complete Linkage)</option>
+            <option id="agglo2_clustering" for="agglo2_clustering" value="agglo2_Clustering">Agglomerative Clustering (Average Linkage)</option>
+
+            </select><br>
+
+            <select class="form-control" name="query" id="query" onchange="valueChange('query')">
+            <option id="queryexp" value="">Query Expansion option:</option>
+            <option id="association_qe_label" for="association_qe" value="association_qe">Association</option>
+            <option id="metric_qe_label" for="metric_qe" value="metric_qe">Metric</option>
+            <option id="scalar_qe_label" for="query_expansion" value="scalar_qe">Scalar</option>
+                <option id="roccio_qe_label" for="query_expansion" value="roccio_qe">Rocchio (Pseudo Relevance)</option>
+            </select>
+
+            <!-- <p id="queryexp">Query Expansion Option:</p>
+            <input type="radio" id="association_qe" name="type" value="association_qe">
+            <label id="association_qe_label" for="association_qe">Association</label>
+            <input type="radio" id="metric_qe" name="type" value="metric_qe">
+            <label id="metric_qe_label" for="metric_qe">Metric</label>
+            <input type="radio" id="scalar_qe" name="type" value="scalar_qe">
+            <label id="scalar_qe_label" for="query_expansion">Scalar</label> -->
+            <br/>
+       <button type="button" class="btn btn-danger" id="search" value="Search" onclick="search_query();">Search</button>
+            <button type="button" class="btn btn-success" id="refresh" onClick="window.location.reload();">Reset</button><br>
+            <!-- <input id="search" type="button" value="Search" onclick="search_query();"> -->
+        <p id="expanded_qu"></p>
+            <hr>
+
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+          $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+            }
+          });
+        });
+    </script>
+
+<div style="margin: 0px 10px 10px 10px;">
+  <div class="col-lg-6">
+  <iframe id="restaurants" width="100%" height="800"></iframe>
+</div>
+<div class="col-lg-6">
+  <iframe id="google" src="https://www.google.com/search?igu=1&source=hp&ei=lheWXriYJ4PktQXN-LPgDA&q=" width="100%" height="400"></iframe>
+  <iframe id="bing" src="https://www.bing.com/search?q=" width="100%" height="400"></iframe>
+  </div>
+</div><br/><br/>
+
+    <!-- <div>
+        <iframe id="restaurants" src="" width="90%" height="500"></iframe>
+    </div><br/><br/>
+
+    <hr>
+    <h2 style="color: dodgerblue">Google Search</h2>
+    <div>
+        <iframe id="google" src="https://www.google.com/search?igu=1&source=hp&ei=lheWXriYJ4PktQXN-LPgDA&q=" width="90%" height="500"></iframe>
+    </div><br/><br/>
+
+    <hr>
+    <h2 style="color: brown">Bing Search</h2>
+    <div>
+        <iframe id="bing" src="https://www.bing.com/search?q=" width="90%" height="500"></iframe>
+    </div> -->
+
+  </body>
+</html>
